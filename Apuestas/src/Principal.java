@@ -1,8 +1,16 @@
+import java.awt.EventQueue;
+
 
 public class Principal {
-
-	public Principal() {
-		// TODO Auto-generated constructor stub
+	
+	
+	
+	public static void main(String[] args) {
+		
+		Equipo m= new Equipo();
+		
+		VentanaEquipo1 frame = new VentanaEquipo1(m);
+		frame.setVisible(true);
+			
 	}
-
 }
