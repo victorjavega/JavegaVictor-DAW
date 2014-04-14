@@ -1,5 +1,5 @@
-
-public class Equipo {
+import java.io.Serializable;
+public class Equipo implements Serializable {
 	
 	private String nombreEquipo;
 	private int golesFavor;
@@ -18,6 +18,7 @@ public class Equipo {
 	}
 public Equipo() {
 		// TODO Auto-generated constructor stub
+	nombreEquipo="";
 	}
 public void setNombre(String a)
 	{

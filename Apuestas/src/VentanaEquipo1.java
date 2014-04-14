@@ -9,6 +9,11 @@ import javax.swing.JTextField;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.io.ObjectOutputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.FileInputStream;
 
 
 public class VentanaEquipo1 extends JFrame {
@@ -23,9 +28,40 @@ public class VentanaEquipo1 extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	
-	
-	public VentanaEquipo1(Equipo e) {
+	private void guardarEnFichero(){
+		ObjectOutputStream salida;
+		try
+		{
+			salida = new ObjectOutputStream(new FileOutputStream("equipo.ser"));
+			salida.writeObject( equip );
+			if( salida != null)
+				salida.close();
+			
+		}
+		catch( IOException ioException){
+		
+		System.err.println("Error al abrir el archivo.");
+		}
+	}
+	private void recuperarEnFichero(){
+		ObjectInputStream entrada;
+		try
+		{
+			entrada = new ObjectInputStream(new FileInputStream("equipo.ser"));
+			equip=(Equipo)entrada.readObject();
+			if( entrada != null)
+				entrada.close();
+			
+		}
+		catch( IOException ioException){
+		
+		System.err.println("Error al abrir el archivo.");
+		}catch( ClassNotFoundException e){
+			
+		}
+	}
+		
+		public VentanaEquipo1(Equipo e) {
 		equip=e;
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
@@ -90,12 +126,41 @@ public class VentanaEquipo1 extends JFrame {
 				int b=0;
 				int c=0;
 				int e=0;
+				
+			equipo=String.valueOf(textField.getText());
+			a=Integer.parseInt(textField_1.getText());
+			b=Integer.parseInt(textField_2.getText());
+			c=Integer.parseInt(textField_3.getText());
+			e=Integer.parseInt(textField_4.getText());
+			equip.setNombre(equipo);
+			equip.setGolesFavor(a);
+			equip.setGolesContra(b);
+			equip.setPartidosGanados(c);
+			equip.setPartidosPerdidos(e);
+			
+			guardarEnFichero();
 			}
 		});
 		Guardar.setBounds(307, 174, 89, 23);
 		contentPane.add(Guardar);
 		
+		JButton recuperar = new JButton("recuperar");
+		recuperar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				recuperarEnFichero();
+				String equipo="";
+				int a=0;
+				int b=0;
+				int c=0;
+				int e=0;
+			equip.s
+				
+			}
+		});
+		recuperar.setBounds(307, 208, 89, 23);
+		contentPane.add(recuperar);
 		
-	} 
+		
+	 } 
 	}
-}
+
